@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>বিজ্ঞান রুটিন ২০২৬ - টেবিল ভিউ</title>
+    <title>বিজ্ঞান নির্বাচনী রুটিন ২০২৬ - স্মার্ট ভিউ</title>
     
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Roboto+Mono:wght@500&display=swap" rel="stylesheet">
-    <!-- Font Awesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-dark: #1e40af;
-            --accent: #f59e0b;
-            --bg: #f8fafc;
-            --text-main: #1e293b;
-            --text-muted: #64748b;
-            --white: #ffffff;
+            --primary: #4f46e5;
+            --primary-light: #818cf8;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-muted: #6b7280;
+            --finished-opacity: 0.5;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -27,75 +30,61 @@
             font-family: 'Hind Siliguri', sans-serif;
             background-color: var(--bg);
             color: var(--text-main);
-            padding: 20px 10px;
             line-height: 1.6;
+            padding: 20px 10px;
         }
 
         .container {
-            max-width: 950px;
+            max-width: 1000px;
             margin: 0 auto;
         }
 
-        /* Header Section */
+        /* Header Styling */
         .header {
             text-align: center;
-            background: var(--white);
-            padding: 30px 20px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-            margin-bottom: 25px;
-            border-top: 6px solid var(--primary);
+            background: linear-gradient(135deg, #1e1b4b 0%, #4338ca 100%);
+            color: white;
+            padding: 40px 20px;
+            border-radius: 24px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+            position: relative;
+            overflow: hidden;
         }
 
         .header h1 {
-            color: var(--primary);
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: clamp(22px, 5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 0.5px;
         }
 
         .header p {
             font-size: 16px;
-            color: var(--text-muted);
+            opacity: 0.9;
+            font-weight: 400;
         }
 
-        /* Countdown Style */
-        .countdown-container {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 10px;
-        }
-
-        .t-item {
-            background: rgba(255,255,255,0.1);
-            padding: 10px;
-            border-radius: 10px;
-            min-width: 70px;
-        }
-
-        .t-val {
-            display: block;
-            font-family: 'Roboto Mono', monospace;
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-        .t-lbl { font-size: 12px; opacity: 0.8; }
-
-        /* Table Responsive Wrapper */
-        .table-wrapper {
-            background: var(--white);
+        /* Dashboard Card for Next Exam */
+        .next-exam-card {
+            background: var(--card-bg);
             border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-left: 8px solid var(--warning);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .next-exam-info h2 { color: var(--text-muted); font-size: 14px; text-transform: uppercase; margin-bottom: 5px; }
+        .next-exam-info h3 { font-size: 22px; color: var(--primary); }
+
+        /* Table Design */
+        .table-container {
+            background: var(--card-bg);
+            border-radius: 24px;
             overflow: hidden;
             box-shadow: 0 4px 25px rgba(0,0,0,0.05);
         }
@@ -103,210 +92,281 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background: var(--white);
+            text-align: left;
         }
 
         thead {
-            background-color: var(--primary);
-            color: var(--white);
+            background-color: #f8fafc;
+            border-bottom: 2px solid #e2e8f0;
         }
 
         th {
-            padding: 18px 15px;
-            text-align: left;
-            font-weight: 600;
-            font-size: 16px;
+            padding: 20px;
+            font-weight: 700;
+            color: var(--text-muted);
+            font-size: 15px;
+            text-transform: uppercase;
         }
 
         td {
-            padding: 15px;
+            padding: 20px;
             border-bottom: 1px solid #f1f5f9;
             vertical-align: middle;
+            transition: all 0.3s ease;
         }
 
-        tr:last-child td { border-bottom: none; }
-        tr:hover { background-color: #f1f7ff; }
+        /* Status & Classes */
+        .row-finished {
+            background-color: #f9fafb;
+            opacity: var(--finished-opacity);
+        }
 
-        /* Specific Cell Styles */
-        .cell-date { font-family: 'Roboto Mono', monospace; font-weight: bold; width: 120px; }
-        .cell-sub { font-weight: 600; font-size: 17px; }
-        .cell-sub i { margin-right: 10px; color: var(--primary); opacity: 0.8; width: 20px; }
-        .cell-time { font-family: 'Roboto Mono', monospace; font-size: 13px; color: var(--text-muted); }
+        .row-finished .subject-name {
+            text-decoration: line-through;
+            color: var(--text-muted);
+        }
+
+        .row-running {
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--success);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: inset 0 0 0 0 rgba(16, 185, 129, 0.1); }
+            50% { box-shadow: inset 5px 0 15px 0 rgba(16, 185, 129, 0.1); }
+            100% { box-shadow: inset 0 0 0 0 rgba(16, 185, 129, 0.1); }
+        }
+
+        .subject-box { display: flex; align-items: center; gap: 15px; }
+        .icon-box {
+            width: 40px;
+            height: 40px;
+            background: #eef2ff;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-size: 18px;
+        }
+
+        .subject-name { font-weight: 700; font-size: 17px; display: block; }
+        .exam-date { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--text-main); }
+        .exam-day { font-size: 13px; color: var(--text-muted); display: block; }
+
+        /* Individual Countdown Style */
+        .countdown-timer {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            font-weight: 700;
+            padding: 6px 12px;
+            border-radius: 8px;
+            display: inline-block;
+            min-width: 160px;
+        }
+
+        .status-upcoming { background: #eff6ff; color: #2563eb; }
+        .status-running { background: #dcfce7; color: #166534; }
+        .status-finished { background: #f3f4f6; color: #9ca3af; }
 
         .badge {
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
             font-weight: 700;
+            margin-top: 5px;
             display: inline-block;
         }
 
-        .bg-gap { background: #fee2e2; color: #dc2626; }
-        .bg-exam { background: #dcfce7; color: #166534; }
-        .bg-start { background: #fef3c7; color: #92400e; }
-
-        /* Mobile Responsive */
-        @media screen and (max-width: 768px) {
-            .header h1 { font-size: 22px; }
-            th { font-size: 14px; padding: 12px 10px; }
-            td { font-size: 14px; padding: 12px 10px; }
-            .cell-sub { font-size: 15px; }
-            .table-wrapper { overflow-x: auto; }
-            table { min-width: 600px; }
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .table-container { overflow-x: auto; }
+            table { min-width: 800px; }
+            .header { padding: 30px 15px; }
+            .next-exam-card { flex-direction: column; text-align: center; gap: 15px; }
         }
 
-        /* Action Buttons */
-        .actions {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            border-radius: 10px;
+        .print-btn {
+            display: block;
+            width: fit-content;
+            margin: 30px auto;
+            background: var(--primary);
+            color: white;
             border: none;
+            padding: 12px 30px;
+            border-radius: 12px;
+            font-weight: 700;
             cursor: pointer;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
             transition: 0.3s;
         }
 
-        .btn-print { background: var(--primary); color: white; }
-        .btn-print:hover { background: var(--primary-dark); }
+        .print-btn:hover { background: var(--primary-dark); transform: translateY(-2px); }
 
         @media print {
-            .countdown-container, .actions { display: none; }
+            .next-exam-card, .print-btn { display: none; }
             body { padding: 0; background: white; }
-            .container { max-width: 100%; }
-            .header { border: 1px solid #ddd; box-shadow: none; border-top: 5px solid black; }
-            .table-wrapper { box-shadow: none; border: 1px solid #eee; }
+            .header { background: white; color: black; border: 2px solid #eee; }
+            .row-finished { opacity: 1; }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
+    <header class="header">
         <h1>বেগম বদরুন্নেসা সরকারি মহিলা কলেজ</h1>
         <p>দ্বাদশ শ্রেণীর নির্বাচনী পরীক্ষা রুটিন ২০২৬ (বিজ্ঞান বিভাগ)</p>
-    </div>
+    </header>
 
-    <!-- Countdown Timer -->
-    <div class="countdown-container">
-        <p>প্রথম পরীক্ষা শুরু হতে বাকি</p>
-        <div class="timer" id="countdown">
-            <div class="t-item"><span class="t-val" id="days">00</span><span class="t-lbl">দিন</span></div>
-            <div class="t-item"><span class="t-val" id="hours">00</span><span class="t-lbl">ঘণ্টা</span></div>
-            <div class="t-item"><span class="t-val" id="mins">00</span><span class="t-lbl">মিনিট</span></div>
-            <div class="t-item"><span class="t-val" id="secs">00</span><span class="t-lbl">সেকেন্ড</span></div>
+    <!-- Highlighted Next Exam Card -->
+    <div id="next-exam-highlight" class="next-exam-card" style="display: none;">
+        <div class="next-exam-info">
+            <h2>পরবর্তী পরীক্ষা</h2>
+            <h3 id="top-next-subject">লোড হচ্ছে...</h3>
+        </div>
+        <div id="top-next-timer" class="countdown-timer status-upcoming" style="font-size: 20px; padding: 15px 25px;">
+            -- : -- : -- : --
         </div>
     </div>
 
-    <!-- Routine Table -->
-    <div class="table-wrapper">
+    <div class="table-container">
         <table>
             <thead>
                 <tr>
                     <th>তারিখ ও দিন</th>
-                    <th>বিষয়</th>
-                    <th>সময়</th>
-                    <th>মন্তব্য</th>
+                    <th>বিষয় ও কোড</th>
+                    <th>কাউন্টডাউন / অবস্থা</th>
+                    <th>গ্যাপ ও মন্তব্য</th>
                 </tr>
             </thead>
-            <tbody id="table-body">
-                <!-- Data will be inserted here by JS -->
+            <tbody id="routine-body">
+                <!-- JS will inject rows here -->
             </tbody>
         </table>
     </div>
 
-    <!-- Actions -->
-    <div class="actions">
-        <button class="btn btn-print" onclick="window.print()">
-            <i class="fa-solid fa-print"></i> প্রিন্ট বা পিডিএফ সেভ করুন
-        </button>
-    </div>
+    <button class="print-btn" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> রুটিন ডাউনলোড করুন
+    </button>
 </div>
 
 <script>
-    const exams = [
-        { date: "2026-01-11", day: "রবিবার", sub: "আইসিটি", icon: "fa-laptop", time: "01:00 - 04:00" },
-        { date: "2026-01-12", day: "সোমবার", sub: "বাংলা ১ম পত্র", icon: "fa-pen-nib", time: "01:00 - 04:00" },
-        { date: "2026-01-13", day: "মঙ্গলবার", sub: "বাংলা ২য় পত্র", icon: "fa-book", time: "01:00 - 04:00" },
-        { date: "2026-01-14", day: "বুধবার", sub: "ইংরেজি ১ম পত্র", icon: "fa-font", time: "01:00 - 04:00" },
-        { date: "2026-01-15", day: "বৃহস্পতিবার", sub: "ইংরেজি ২য় পত্র", icon: "fa-language", time: "01:00 - 04:00" },
-        { date: "2026-01-20", day: "মঙ্গলবার", sub: "পদার্থবিজ্ঞান ১ম পত্র", icon: "fa-atom", time: "01:00 - 04:00" },
-        { date: "2026-01-21", day: "বুধবার", sub: "পদার্থবিজ্ঞান ২য় পত্র", icon: "fa-magnet", time: "01:00 - 04:00" },
-        { date: "2026-01-22", day: "বৃহস্পতিবার", sub: "জীববিজ্ঞান ১ম পত্র", icon: "fa-leaf", time: "01:00 - 04:00" },
-        { date: "2026-01-25", day: "রবিবার", sub: "জীববিজ্ঞান ২য় পত্র", icon: "fa-dna", time: "01:00 - 04:00" },
-        { date: "2026-01-26", day: "সোমবার", sub: "গণিত (উচ্চতর) ১ম পত্র", icon: "fa-calculator", time: "01:00 - 04:00" },
-        { date: "2026-01-27", day: "মঙ্গলবার", sub: "গণিত (উচ্চতর) ২য় পত্র", icon: "fa-compass", time: "01:00 - 04:00" },
-        { date: "2026-01-28", day: "বুধবার", sub: "রসায়ন ১ম পত্র", icon: "fa-flask", time: "01:00 - 04:00" },
-        { date: "2026-01-29", day: "বৃহস্পতিবার", sub: "রসায়ন ২য় পত্র", icon: "fa-vial", time: "01:00 - 04:00" }
+    const examData = [
+        { date: "2026-01-11", day: "রবিবার", sub: "আইসিটি", icon: "fa-laptop-code", code: "275" },
+        { date: "2026-01-12", day: "সোমবার", sub: "বাংলা ১ম পত্র", icon: "fa-pen-nib", code: "101" },
+        { date: "2026-01-13", day: "মঙ্গলবার", sub: "বাংলা ২য় পত্র", icon: "fa-book-open", code: "102" },
+        { date: "2026-01-14", day: "বুধবার", sub: "ইংরেজি ১ম পত্র", icon: "fa-font", code: "107" },
+        { date: "2026-01-15", day: "বৃহস্পতিবার", sub: "ইংরেজি ২য় পত্র", icon: "fa-language", code: "108" },
+        { date: "2026-01-20", day: "মঙ্গলবার", sub: "পদার্থবিজ্ঞান ১ম পত্র", icon: "fa-atom", code: "174" },
+        { date: "2026-01-21", day: "বুধবার", sub: "পদার্থবিজ্ঞান ২য় পত্র", icon: "fa-magnet", code: "175" },
+        { date: "2026-01-22", day: "বৃহস্পতিবার", sub: "জীববিজ্ঞান ১ম পত্র", icon: "fa-leaf", code: "178" },
+        { date: "2026-01-25", day: "রবিবার", sub: "জীববিজ্ঞান ২য় পত্র", icon: "fa-dna", code: "179" },
+        { date: "2026-01-26", day: "সোমবার", sub: "উচ্চতর গণিত ১ম পত্র", icon: "fa-calculator", code: "265" },
+        { date: "2026-01-27", day: "মঙ্গলবার", sub: "উচ্চতর গণিত ২য় পত্র", icon: "fa-compass", code: "266" },
+        { date: "2026-01-28", day: "বুধবার", sub: "রসায়ন ১ম পত্র", icon: "fa-flask", code: "176" },
+        { date: "2026-01-29", day: "বৃহস্পতিবার", sub: "রসায়ন ২য় পত্র", icon: "fa-vials", code: "177" }
     ];
 
-    const tbody = document.getElementById('table-body');
+    const tbody = document.getElementById('routine-body');
+    const examTimeStr = "13:00:00"; // 01:00 PM
+    const durationHours = 3;
 
-    exams.forEach((exam, index) => {
-        // Gap calculation
-        let gapLabel = "";
-        if (index === 0) {
-            gapLabel = `<span class="badge bg-start">শুরু</span>`;
-        } else {
-            const prev = new Date(exams[index-1].date);
-            const curr = new Date(exam.date);
-            const diff = Math.ceil((curr - prev) / (1000 * 60 * 60 * 24)) - 1;
-            
-            if (diff > 0) {
-                gapLabel = `<span class="badge bg-gap">${diff} দিন ছুটি</span>`;
+    // Create Initial Rows
+    function renderTable() {
+        tbody.innerHTML = '';
+        examData.forEach((exam, index) => {
+            let gapInfo = "";
+            if (index > 0) {
+                const prevDate = new Date(examData[index-1].date);
+                const currDate = new Date(exam.date);
+                const diff = Math.ceil((currDate - prevDate) / (1000 * 60 * 60 * 24)) - 1;
+                gapInfo = diff > 0 ? `<span class="badge" style="background:#fef3c7; color:#92400e;">${diff} দিন ছুটি</span>` : `<span class="badge" style="background:#fee2e2; color:#dc2626;">টানা পরীক্ষা</span>`;
             } else {
-                gapLabel = `<span class="badge bg-exam">টানা</span>`;
+                gapInfo = `<span class="badge" style="background:#dcfce7; color:#166534;">শুরু</span>`;
             }
-        }
 
-        // Format Date for table
-        const d = new Date(exam.date);
-        const dateStr = d.toLocaleDateString('en-GB').split('/').join('-'); // DD-MM-YYYY
-
-        const row = `
-            <tr>
-                <td class="cell-date">${dateStr}<br><small style="color:var(--text-muted)">${exam.day}</small></td>
-                <td class="cell-sub"><i class="fa-solid ${exam.icon}"></i> ${exam.sub}</td>
-                <td class="cell-time">${exam.time}</td>
-                <td>${gapLabel}</td>
-            </tr>
-        `;
-        tbody.innerHTML += row;
-    });
-
-    // Countdown Logic
-    const target = new Date("January 11, 2026 13:00:00").getTime();
-    
-    function updateCountdown() {
-        const now = new Date().getTime();
-        const dist = target - now;
-
-        if (dist < 0) {
-            document.getElementById('countdown').innerHTML = "<h3>পরীক্ষা চলছে! শুভকামনা।</h3>";
-            return;
-        }
-
-        const d = Math.floor(dist / (1000 * 60 * 60 * 24));
-        const h = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((dist % (1000 * 60)) / 1000);
-
-        document.getElementById('days').innerText = d.toString().padStart(2, '0');
-        document.getElementById('hours').innerText = h.toString().padStart(2, '0');
-        document.getElementById('mins').innerText = m.toString().padStart(2, '0');
-        document.getElementById('secs').innerText = s.toString().padStart(2, '0');
+            const row = document.createElement('tr');
+            row.id = `exam-row-${index}`;
+            row.innerHTML = `
+                <td>
+                    <span class="exam-date">${exam.date.split('-').reverse().join('-')}</span>
+                    <span class="exam-day">${exam.day}</span>
+                </td>
+                <td>
+                    <div class="subject-box">
+                        <div class="icon-box"><i class="fa-solid ${exam.icon}"></i></div>
+                        <div>
+                            <span class="subject-name">${exam.sub}</span>
+                            <small style="color:var(--text-muted)">কোড: ${exam.code}</small>
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <div id="timer-${index}" class="countdown-timer status-upcoming">লোড হচ্ছে...</div>
+                </td>
+                <td>
+                    ${gapInfo}
+                </td>
+            `;
+            tbody.appendChild(row);
+        });
     }
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+    function updateClocks() {
+        const now = new Date();
+        let foundNext = false;
+
+        examData.forEach((exam, index) => {
+            const row = document.getElementById(`exam-row-${index}`);
+            const timerDiv = document.getElementById(`timer-${index}`);
+            
+            const start = new Date(`${exam.date} ${examTimeStr}`);
+            const end = new Date(start.getTime() + durationHours * 60 * 60 * 1000);
+
+            if (now > end) {
+                // Exam Finished
+                row.className = 'row-finished';
+                timerDiv.innerText = "সম্পন্ন হয়েছে";
+                timerDiv.className = "countdown-timer status-finished";
+            } 
+            else if (now >= start && now <= end) {
+                // Exam Running
+                row.className = 'row-running';
+                timerDiv.innerText = "চলমান...";
+                timerDiv.className = "countdown-timer status-running";
+            } 
+            else {
+                // Exam Upcoming
+                row.className = '';
+                const diff = start - now;
+                const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                timerDiv.innerText = `${d}দিন ${h}ঘ : ${m}মি : ${s}সে`;
+                timerDiv.className = "countdown-timer status-upcoming";
+
+                // Update Top Highlight Card for the very next exam
+                if (!foundNext) {
+                    document.getElementById('next-exam-highlight').style.display = 'flex';
+                    document.getElementById('top-next-subject').innerText = exam.sub;
+                    document.getElementById('top-next-timer').innerText = `${d} দিন ${h} ঘণ্টা ${m} মিনিট ${s} সেকেন্ড`;
+                    foundNext = true;
+                }
+            }
+        });
+
+        if (!foundNext) {
+            document.getElementById('next-exam-highlight').style.display = 'none';
+        }
+    }
+
+    // Initialize
+    renderTable();
+    setInterval(updateClocks, 1000);
+    updateClocks();
 </script>
 
 </body>
